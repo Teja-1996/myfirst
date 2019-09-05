@@ -44,6 +44,6 @@ pipeline {
 					echo 'Code Quality Check is failed'
 				}
 			}
-		{
+		}
 	}
 }
