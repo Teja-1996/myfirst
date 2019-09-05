@@ -18,6 +18,7 @@ pipeline {
 				}
 			}
 		}
+		parallel{
 		stage ('deploy to staging'){
 			steps {
 				echo 'Deploying to staging server'
@@ -45,5 +46,6 @@ pipeline {
 				}
 			}
 		}
+	}
 	}
 }
