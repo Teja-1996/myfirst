@@ -17,35 +17,35 @@ pipeline {
 					archiveArtifacts '**/*.war'
 				}
 			}
-		}
-		parallel {
-			stage ('deploy to staging'){
-				steps {
-					echo 'Deploying to staging server'
-					deploy adapters: [tomcat9(credentialsId: '2e759ba4-439b-47f6-a836-c20a89da452d', path: '', url: 'http://localhost:8089')], contextPath: null, war: '**/*.war'
-				}	
-				post {
-					success {
-						echo 'Deployed'
+			parallel {
+				stage ('deploy to staging'){
+					steps {
+						echo 'Deploying to staging server'
+						deploy adapters: [tomcat9(credentialsId: '2e759ba4-439b-47f6-a836-c20a89da452d', path: '', url: 'http://localhost:8089')], contextPath: null, war: '**/*.war'
+					}	
+					post {
+						success {
+							echo 'Deployed'
+						}
+						failure {
+							echo 'Failed To Deploy'
+						}
+					}	
+				}
+				stage('Static Code Analysis'){
+					steps {
+						checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
 					}
-					failure {
-						echo 'Failed To Deploy'
-					}
+					post {
+						success {
+							echo 'Code Quality check is done'
+						}
+						failure {
+							echo 'Code Quality Check is failed'
+						}
+					}	
 				}	
 			}
-			stage('Static Code Analysis'){
-				steps {
-					checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
-				}
-				post {
-					success {
-						echo 'Code Quality check is done'
-					}
-					failure {
-						echo 'Code Quality Check is failed'
-					}
-				}
-			}	
 		}
 	}
 }
