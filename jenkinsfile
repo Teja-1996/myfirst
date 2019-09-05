@@ -1,0 +1,19 @@
+pipeline {
+	agent any
+
+	stages {
+		stage ('Hello'){
+			steps {
+				echo 'Hello world!'
+			}
+			post {
+				success {
+					echo 'Done!'
+				{
+				failure {
+					echo 'Not Done!'
+				{
+			{
+		}
+	}
+}
