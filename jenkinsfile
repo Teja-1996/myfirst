@@ -35,7 +35,7 @@ pipeline {
 		stage('Static Code Analysis'){
 			steps {
 				checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
-			{
+			}
 			post {
 				success {
 					echo 'Code Quality check is done'
