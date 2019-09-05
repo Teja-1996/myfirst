@@ -12,8 +12,8 @@ pipeline {
 				{
 				failure {
 					echo 'Not Done!'
-				{
-			{
+				}
+			}
 		}
 	}
 }
