@@ -10,9 +10,6 @@ pipeline {
 				success {
 					echo 'Done!'
 				}
-				failure {
-					echo 'Not Done!'
-				}
 			}
 		}
 	}
