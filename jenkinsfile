@@ -1,15 +1,15 @@
 pipeline {
 	agent any
 
+	tools {
+		jdk 'localJDK'
+		maven 'MAVEN_HOME'
+	}
+
 	stages {
-		stage ('Hello'){
+		stage ('Build'){
 			steps {
-				echo 'Hello world!'
-			}
-			post {
-				success {
-					echo 'Done!'
-				}
+				bat script: 'mvn clean package'
 			}
 		}
 	}
