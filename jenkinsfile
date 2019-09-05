@@ -16,7 +16,21 @@ pipeline {
 					echo 'Archiving the artifacts'
 					archiveArtifacts '**/*.war'
 				}
-			}				}
+			}
+		}
+		stage ('deploy to staging'){
+			steps {
+				echo 'Deploying to staging server'
+				deploy adapters: [tomcat9(credentialsId: '2e759ba4-439b-47f6-a836-c20a89da452d', path: '', url: 'http://localhost:8089')], contextPath: null, war: '**/*.war'
+			}
+			post {
+				success {
+					echo 'Deployed'
+				}
+				Failure {
+					echo 'Failed To Deploy'
+				}
+			}
 		}
 	}
 }
