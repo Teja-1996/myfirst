@@ -11,6 +11,12 @@ pipeline {
 			steps {
 				bat script: 'mvn clean package'
 			}
+			post {
+				success {
+					echo 'Archiving the artifacts'
+					archiveArtifacts '**/*.war'
+				}
+			}				}
 		}
 	}
 }
