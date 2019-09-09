@@ -49,5 +49,23 @@ pipeline {
 				}			
 			}
 		}
+		stage('Deployment to Production') {
+			steps {
+				echo 'Copying artifacts from build job'
+				copyArtifacts filter: '**/*.war', fingerprintArtifacts: true, projectName: 'build job', selector: lastSuccessful()
+				echo 'Deploying to production server'
+				deploy adapters: [tomcat9(credentialsId: '2e759ba4-439b-47f6-a836-c20a89da452d', path: '', url: 'http://localhost:9999')], contextPath: null, war: '**/*.war'
+			}
+			post {
+				success {
+					echo 'war file is deployed on a production container'
+				}
+				failure {
+					echo 'Deployment is failed'
+				}
+
+			}
+
+		}
 	}
 }
